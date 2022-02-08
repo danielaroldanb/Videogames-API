@@ -6,9 +6,9 @@ const { API_KEY } = process.env;
 
 router.get("/", async (req, res) => {
     try {
-      let platformsByApi = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
+      let platformsByApi = await axios.get(`https://api.rawg.io/api/platforms?key=${API_KEY}`);
       let dataPlatforms = platformsByApi.data.results.map(async (p) => {
-        await Platform.findOrCreate({ where: {name: p.platforms[5].platform.name} });
+        await Platform.findOrCreate({ where: {name: p.name} });
       });
       const AllPlatforms = await Platform.findAll();
           res.status(200).send(AllPlatforms);
